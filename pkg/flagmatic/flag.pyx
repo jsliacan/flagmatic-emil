@@ -1,5 +1,5 @@
 from sage.structure.sage_object cimport SageObject
-from sage.rings.all import ZZ
+from sage.rings.integer_ring import Z as ZZ
 
 cdef class Flag (SageObject):
 

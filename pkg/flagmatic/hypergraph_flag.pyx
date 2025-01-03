@@ -52,10 +52,19 @@ import sys # remove this, just for testing
 import numpy
 cimport numpy
 
-from sage.arith.all import binomial, falling_factorial
-from sage.combinat.all import Combinations, Permutations, Tuples, Subsets
-from sage.rings.all import Integer, QQ, ZZ
-from sage.matrix.all import matrix, block_matrix
+numpy.import_array()
+
+from sage.arith.misc import binomial
+from sage.arith.misc import falling_factorial
+from sage.combinat.combination import Combinations
+from sage.combinat.permutation import Permutations
+from sage.combinat.tuple import Tuples
+from sage.combinat.subset import Subsets
+from sage.rings.integer import Integer
+from sage.rings.rational_field import Q as QQ
+from sage.rings.integer_ring import Z as ZZ
+from sage.matrix.constructor import Matrix as matrix
+from sage.matrix.special import block_matrix
 from sage.modules.misc import gram_schmidt
                 
 

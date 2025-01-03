@@ -35,14 +35,24 @@ import gzip, json, os, sys
 import numpy
 import itertools
 import pexpect
-import sage.all
+
+try:
+    import sage.all
+except ImportError:
+    import sage.all__sagemath_modules
 
 from sage.structure.sage_object import SageObject
-from sage.rings.all import Integer, Rational, QQ, ZZ, RDF
+from sage.rings.integer import Integer
+from sage.rings.rational import Rational
+from sage.rings.rational_field import Q as QQ
+from sage.rings.integer_ring import Z as ZZ
+from sage.rings.real_double import RDF
 from sage.functions.other import floor
-from sage.matrix.all import matrix, identity_matrix, block_matrix, block_diagonal_matrix
+from sage.matrix.constructor import Matrix as matrix
+from sage.matrix.special import identity_matrix
+from sage.matrix.special import block_matrix
+from sage.matrix.special import block_diagonal_matrix
 from sage.modules.misc import gram_schmidt
-from sage.misc.misc import SAGE_TMP
 #from sage.combinat.all import Permutations, Combinations, Tuples
 from sage.matrix.constructor import ones_matrix, vector
 from copy import copy
@@ -64,6 +74,9 @@ sdpa_cmd = "sdpa"
 sdpa_dd_cmd = "sdpa_dd"
 sdpa_qd_cmd = "sdpa_qd"
 dsdp_cmd = "dsdp"
+
+import tempfile
+SAGE_TMP = tempfile.TemporaryDirectory()
 
 
 def block_structure(M):

@@ -30,9 +30,11 @@ http://cordis.europa.eu/project/rcn/104324_en.html
 """
 
 # the following are already functions in Sage-8.6+
-from sage.arith.all import binomial
-from sage.combinat.all import Tuples, Combinations
-from sage.rings.all import Integer, RationalField
+from sage.arith.misc import binomial
+from sage.combinat.tuple import Tuples
+from sage.combinat.combination import Combinations
+from sage.rings.integer import Integer
+from sage.rings.rational_field import RationalField
 
 from .construction import *
 from .three_graph_flag import *

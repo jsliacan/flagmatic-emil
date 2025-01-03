@@ -29,6 +29,11 @@ Further development of Flagmatic is supported by ERC.
 http://cordis.europa.eu/project/rcn/104324_en.html
 """
 
+try:
+    import sage.all
+except ImportError:
+    import sage.all__sagemath_modules
+
 from .flag import *
 from .hypergraph_flag import *
 from .three_graph_flag import *

@@ -31,9 +31,15 @@ http://cordis.europa.eu/project/rcn/104324_en.html
 
 import sys
 
-from sage.arith.all import factorial
-from sage.combinat.all import UnorderedTuples, Tuples, Combinations, Permutations, Compositions, Subsets
-from sage.rings.all import Integer, RationalField
+from sage.arith.misc import factorial
+from sage.combinat.tuple import UnorderedTuples
+from sage.combinat.tuple import Tuples
+from sage.combinat.combination import Combinations
+from sage.combinat.permutation import Permutations
+from sage.combinat.composition import Compositions
+from sage.combinat.subset import Subsets
+from sage.rings.integer import Integer
+from sage.rings.rational_field import RationalField
 from sage.interfaces.gap import gap
 from copy import copy
 
