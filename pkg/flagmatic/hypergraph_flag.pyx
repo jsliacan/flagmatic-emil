@@ -1167,10 +1167,10 @@ cdef class HypergraphFlag (Flag):
                                 continue
                         
                         if self._r == 3:
-                                max_e = k * (k - 1) * (k - 2) / 6
+                                max_e = k * (k - 1) * (k - 2) // 6
                         else:
-                                max_e = k * (k - 1) / 2
-                        
+                                max_e = k * (k - 1) // 2
+
                         forbidden_edge_nums = <int *> calloc(max_e + 1, sizeof(int))
 
                         for i in range(max_e + 1):
@@ -2020,9 +2020,9 @@ def make_graph_block(graphs, n):
                 gb.graphs[i] = <void *> graphs[i]
         return gb
 
-        
+
 def print_graph_block(graph_block gb):
 
         for i in range(gb.len):
                 g = <HypergraphFlag ?> gb.graphs[i]
-                print str(g)
+                print(str(g))

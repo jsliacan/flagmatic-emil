@@ -3851,7 +3851,7 @@ class Problem(SageObject):
                             continue
                         else:
                             if f_tuple == (4,3,1):
-                                print "true C", pairF, pairB, w, Fj, B
+                                print("true C", pairF, pairB, w, Fj, B)
                             edges_match_so_far = False
 
                     if edges_match_so_far:
@@ -3867,7 +3867,7 @@ class Problem(SageObject):
         b[0] = 1
         b = vector(b)
         a = D.solve_right(b)
-        print a
+        print(a)
         """
                                 
                         
