@@ -35,65 +35,71 @@ from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 
-if not 'SAGE_ROOT' in os.environ:
-	print("	   ERROR: The environment variable SAGE_ROOT must be defined.")
-	sys.exit(1)
+if 'SAGE_ROOT' in os.environ:
+    SAGE_ROOT  = os.environ['SAGE_ROOT']
+    include_dirs = [
+        os.path.join(SAGE_ROOT, 'local/include'),
+        os.path.join(SAGE_ROOT, 'local/include/csage'),
+        os.path.join(SAGE_ROOT, 'devel/sage/sage/ext'),
+        os.path.join(SAGE_ROOT, 'src/sage/ext'),
+        os.path.join(SAGE_ROOT, 'devel/sage'),
+        os.path.join(SAGE_ROOT, 'src')
+    ]
+    library_dirs = [
+        os.path.join(SAGE_ROOT, 'local/lib')
+    ]
 else:
-	SAGE_ROOT  = os.environ['SAGE_ROOT']
+    include_dirs = []
+    library_dirs = []
 
 
 ext_mdls = [
-	Extension('flagmatic.flag',
-		  sources=['flagmatic/flag.pyx'],
-		  include_dirs = [
-			  os.path.join(SAGE_ROOT, 'local/include'),
-			  os.path.join(SAGE_ROOT, 'local/include/csage'),
-			  os.path.join(SAGE_ROOT, 'devel/sage/sage/ext'),
-	        	  os.path.join(SAGE_ROOT, 'src/sage/ext'),
-			  os.path.join(SAGE_ROOT, 'devel/sage'),
-        		  os.path.join(SAGE_ROOT, 'src')],
-		  library_dirs = [os.path.join(SAGE_ROOT, 'local/lib')],
-		  extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
-	),
-	Extension('flagmatic.hypergraph_flag',
-		  sources=['flagmatic/hypergraph_flag.pyx'],
-		  include_dirs = [
-			  os.path.join(SAGE_ROOT, 'local/include'),
-			  os.path.join(SAGE_ROOT, 'local/lib/python/site-packages/numpy/core/include'),
-			  os.path.join(SAGE_ROOT, 'local/include/csage'),
-			  os.path.join(SAGE_ROOT, 'devel/sage/sage/ext'),
-        		  os.path.join(SAGE_ROOT, 'src/sage/ext'),
-			  os.path.join(SAGE_ROOT, 'devel/sage'),
-        		  os.path.join(SAGE_ROOT, 'src'),
-			  numpy.get_include()],
-		  library_dirs = [os.path.join(SAGE_ROOT, 'local/lib')],
-		  extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
-	),
-	Extension('flagmatic.three_graph_flag',
-		  sources=['flagmatic/three_graph_flag.pyx'],
-		  extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
-	),
-	Extension('flagmatic.graph_flag',
-		  sources=['flagmatic/graph_flag.pyx'],
-		  extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
-	),
-	Extension('flagmatic.oriented_graph_flag',
-		  sources=['flagmatic/oriented_graph_flag.pyx'],
-		  extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
-	),
-	Extension('flagmatic.multigraph_flag',
-		  sources=['flagmatic/multigraph_flag.pyx'],
-		  extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
-	)
+    Extension('flagmatic.flag',
+          sources=['flagmatic/flag.pyx'],
+          include_dirs=include_dirs,
+          library_dirs=library_dirs,
+          extra_compile_args=["-O3", "-Wall", "-Wno-strict-prototypes"]
+    ),
+    Extension('flagmatic.hypergraph_flag',
+          sources=['flagmatic/hypergraph_flag.pyx'],
+          include_dirs=include_dirs + [numpy.get_include()],
+          library_dirs=library_dirs,
+          extra_compile_args=["-O3", "-Wall", "-Wno-strict-prototypes"]
+    ),
+    Extension('flagmatic.three_graph_flag',
+          sources=['flagmatic/three_graph_flag.pyx'],
+          extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
+    ),
+    Extension('flagmatic.graph_flag',
+          sources=['flagmatic/graph_flag.pyx'],
+          extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
+    ),
+    Extension('flagmatic.oriented_graph_flag',
+          sources=['flagmatic/oriented_graph_flag.pyx'],
+          extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
+    ),
+    Extension('flagmatic.multigraph_flag',
+          sources=['flagmatic/multigraph_flag.pyx'],
+          extra_compile_args = ["-O3", "-Wall", "-Wno-strict-prototypes"]
+    )
 ]
 
 
 setup(
-	name='Flagmatic',
-	packages=['flagmatic'],
-	author='Emil R. Vaughan',
-	author_email='e.vaughan@qmul.ac.uk',
-	version='3.0',
-	cmdclass = {'build_ext': build_ext},
-        ext_modules = ext_mdls
+    name='Flagmatic',
+    packages=['flagmatic'],
+    author='Emil R. Vaughan',
+    author_email='e.vaughan@qmul.ac.uk',
+    version='3.0',
+    cmdclass = {'build_ext': build_ext},
+    ext_modules = ext_mdls,
+    extras_require={
+        'passagemath': [
+            'numpy',
+            'passagemath-gap',
+            'passagemath-graphs',
+            'passagemath-modules',
+            'passagemath-repl',
+        ],
+    }
 )

@@ -29,9 +29,9 @@ Further development of Flagmatic is supported by ERC.
 http://cordis.europa.eu/project/rcn/104324_en.html
 """
 
-from sage.arith.all import binomial
+from sage.arith.misc import binomial
 from sage.graphs.digraph import DiGraph
-from hypergraph_flag cimport HypergraphFlag
+from .hypergraph_flag cimport HypergraphFlag
 
 
 cdef class OrientedGraphFlag (HypergraphFlag):

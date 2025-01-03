@@ -35,14 +35,24 @@ import gzip, json, os, sys
 import numpy
 import itertools
 import pexpect
-import sage.all
+
+try:
+    import sage.all
+except ImportError:
+    import sage.all__sagemath_modules
 
 from sage.structure.sage_object import SageObject
-from sage.rings.all import Integer, Rational, QQ, ZZ, RDF
+from sage.rings.integer import Integer
+from sage.rings.rational import Rational
+from sage.rings.rational_field import Q as QQ
+from sage.rings.integer_ring import Z as ZZ
+from sage.rings.real_double import RDF
 from sage.functions.other import floor
-from sage.matrix.all import matrix, identity_matrix, block_matrix, block_diagonal_matrix
+from sage.matrix.constructor import Matrix as matrix
+from sage.matrix.special import identity_matrix
+from sage.matrix.special import block_matrix
+from sage.matrix.special import block_diagonal_matrix
 from sage.modules.misc import gram_schmidt
-from sage.misc.misc import SAGE_TMP
 #from sage.combinat.all import Permutations, Combinations, Tuples
 from sage.matrix.constructor import ones_matrix, vector
 from copy import copy
@@ -64,6 +74,9 @@ sdpa_cmd = "sdpa"
 sdpa_dd_cmd = "sdpa_dd"
 sdpa_qd_cmd = "sdpa_qd"
 dsdp_cmd = "dsdp"
+
+import tempfile
+SAGE_TMP = tempfile.TemporaryDirectory()
 
 
 def block_structure(M):
@@ -3838,7 +3851,7 @@ class Problem(SageObject):
                             continue
                         else:
                             if f_tuple == (4,3,1):
-                                print "true C", pairF, pairB, w, Fj, B
+                                print("true C", pairF, pairB, w, Fj, B)
                             edges_match_so_far = False
 
                     if edges_match_so_far:
@@ -3854,7 +3867,7 @@ class Problem(SageObject):
         b[0] = 1
         b = vector(b)
         a = D.solve_right(b)
-        print a
+        print(a)
         """
                                 
                         
@@ -3930,7 +3943,7 @@ def fpd(tp, flg1, flg2, grph):
     EXAMPLE:
     
     sage: fpd("2:", "3:13(2)", "3:23(2)", "4:1234")
-    sage: 1/3
+    1/3
     """
     
     try:
@@ -3993,7 +4006,7 @@ def fpds(tp, flg1, flg2, nn):
     EXAMPLE:
     
     sage: fpds("2:", "3:13(2)", "3:23(2)", 4)
-    sage: [(4:1234, 1/3), (4:121324, 1/12)]
+    [(4:1234, 1/3), (4:121324, 1/12)]
     """
     
     try:
@@ -4054,7 +4067,7 @@ def dens(graph, family_dimension):
     EXAMPLE:
     
     sage: dens("3:121323", 4)
-    sage: [(4:121323, 1/4), (4:12131423, 1/4), (4:1213142324, 1/2), (4:121314232434, 1)]
+    [(4:121323, 1/4), (4:12131423, 1/4), (4:1213142324, 1/2), (4:121314232434, 1)]
     """
 
     try:

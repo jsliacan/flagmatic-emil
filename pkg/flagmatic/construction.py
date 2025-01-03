@@ -30,8 +30,8 @@ http://cordis.europa.eu/project/rcn/104324_en.html
 """
 
 from sage.structure.sage_object import SageObject
-from sage.rings.all import RationalField
-from sage.matrix.all import matrix
+from sage.rings.rational_field import RationalField
+from sage.matrix.constructor import Matrix as matrix
 from copy import copy
 
 

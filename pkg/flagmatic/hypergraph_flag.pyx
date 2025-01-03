@@ -52,10 +52,19 @@ import sys # remove this, just for testing
 import numpy
 cimport numpy
 
-from sage.arith.all import binomial, falling_factorial
-from sage.combinat.all import Combinations, Permutations, Tuples, Subsets
-from sage.rings.all import Integer, QQ, ZZ
-from sage.matrix.all import matrix, block_matrix
+numpy.import_array()
+
+from sage.arith.misc import binomial
+from sage.arith.misc import falling_factorial
+from sage.combinat.combination import Combinations
+from sage.combinat.permutation import Permutations
+from sage.combinat.tuple import Tuples
+from sage.combinat.subset import Subsets
+from sage.rings.integer import Integer
+from sage.rings.rational_field import Q as QQ
+from sage.rings.integer_ring import Z as ZZ
+from sage.matrix.constructor import Matrix as matrix
+from sage.matrix.special import block_matrix
 from sage.modules.misc import gram_schmidt
                 
 
@@ -1158,10 +1167,10 @@ cdef class HypergraphFlag (Flag):
                                 continue
                         
                         if self._r == 3:
-                                max_e = k * (k - 1) * (k - 2) / 6
+                                max_e = k * (k - 1) * (k - 2) // 6
                         else:
-                                max_e = k * (k - 1) / 2
-                        
+                                max_e = k * (k - 1) // 2
+
                         forbidden_edge_nums = <int *> calloc(max_e + 1, sizeof(int))
 
                         for i in range(max_e + 1):
@@ -2011,9 +2020,9 @@ def make_graph_block(graphs, n):
                 gb.graphs[i] = <void *> graphs[i]
         return gb
 
-        
+
 def print_graph_block(graph_block gb):
 
         for i in range(gb.len):
                 g = <HypergraphFlag ?> gb.graphs[i]
-                print str(g)
+                print(str(g))
